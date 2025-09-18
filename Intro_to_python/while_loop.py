@@ -18,6 +18,18 @@ while(i < 21):
     print (i)
   i = i + 1
 
+#printing all even numbers between x and y
 def evens(x, y):
   while(x<y):
-    if x % 2 == 0
+    if x % 2 == 0:
+      print (x)
+    x = x + 1 
+
+#function for printing reverse even numbers between x and y
+def reverse_evens(x, y):
+   while y > x:
+      y -= 1
+      if y % 2 == 0:
+         print(y)
+
+        
