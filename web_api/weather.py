@@ -1,26 +1,34 @@
 from pyowm.owm import OWM
+from datetime import datetime
+from dotenv import load_dotenv
+import os
 
-API_KEY = "c23aa314613b303de222c1f3a0fb7206"
+load_dotenv()
 
-location = input("What city and coutry are you in? ")
+API_KEY = os.getenv('API_KEY')
 
-owm =  OWM(API_KEY)
-weather_manager = owm.weather_manager()
-observation = weather_manager.weather_at_place(location)
-w = observation.weather
+location = input("What city are you in? ")
+today = datetime.now()
+
+try :
+    owm =  OWM(API_KEY)
+    weather_manager = owm.weather_manager()
+    observation = weather_manager.weather_at_place(location)
+    w = observation.weather
 
 
-weather_status = w.detailed_status
-weather_wind = w.wind()
-weather_humidity = w.humidity
-weather_temp = w.temperature('celsius')
+    weather_status = w.detailed_status
+    weather_wind = w.wind()
+    weather_humidity = w.humidity
+    weather_temp = w.temperature('celsius')
 
-print(
-    f" \n"
-    f"Good morning! Welcome to your local weather forecast for today, [Date].\n"
-    f"we have {weather_status} towering us today"
-    f"And we're starting the day off at {weather_temp['temp']} degrees although it feels like {weather_temp['feels_like']}.\n" 
-    f"Winds are moving at {weather_wind['speed']} meters per second\n"
+    print(
+        f" \n"
+        f"Good morning! Welcome to your local weather forecast for {today}.\n"
+        f"We are starting the day off with {weather_status} and a temperature of {weather_temp['temp']} degrees.\n"
+        f"It feels like {weather_temp['feels_like']} outside.\n" 
+        f"We have winds moving at {weather_wind['speed']} mph\n"
+) 
+except Exception as e:
+    print(f"Error: {e}")
 
-    
-    )
